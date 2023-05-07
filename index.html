@@ -3,26 +3,47 @@
   <head>
     <meta charset="UTF-8">
     <title>引用文献書式生成</title>
+    <style type="text/css">
+      .input-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .input-label {
+        margin-right: 10px;
+      }
+
+      .input-field {
+        display: inline-block;
+        width: 100%;
+      }
+      </style>
   </head>
   <body>
     <form id="citation-form">
       <label for="author">著者姓 名:</label>
-      <input type="text" id="author" name="author" required><br>
+      <input type="text" id="author" name="author" required>
+      <label></label>姓と名の間は半角スペースを空けます。例：高橋 太郎<br>
       <label for="year">刊行年:</label>
-      <input type="number" id="year" name="year" required><br>
-      <label for="title">表題:</label>
+      <input type="number" id="year" name="year" required>
+      <label>半角数字のみで入力します。例：1999</label><br>
+      <label for="title">タイトル:</label>
       <input type="text" id="title" name="title" required><br>
-      <label for="journal">誌名:</label>
-      <input type="text" id="journal" name="journal" required><br>
+      <label for="journal">雑誌名:</label>
+      <input type="text" id="journal" name="journal" required>
+      <label>例：心理学研究</label><br>
       <label for="volume">巻数:</label>
-      <input type="text" id="volume" name="volume" required><br>
+      <input type="text" id="volume" name="volume" required>
+      <label>巻数と、あれば号数を記載します。19巻1号の場合、19(1)と書きます。</label><br>
       <label for="page">引用ページ:</label>
-      <input type="text" id="page" name="page" required><br>
+      <input type="text" id="page" name="page" required>
+      <label>15ページから19ページの場合、15-19と書きます。</label><br>
       <label for="doi">DOI:</label>
-      <input type="text" id="doi" name="doi" required><br>
-      <button type="button" onclick="generateCitation()">生成</button>
+      <input type="text" id="doi" name="doi" required>
+      <label>doiを入力します。"https://doi.org/xxx..."のようなURLで、大抵どこかに記載されています。</label><br>
+      <button type="button" onclick="generateCitation()">書き出す</button>
     </form>
-    <textarea id="result" rows="10" cols="50"></textarea>
+    <textarea id="result" rows="20" cols="150"></textarea>
     <script>
       function generateCitation() {
         const author = document.getElementById('author').value;
@@ -39,5 +60,10 @@
         result.value += citation + '\n';
       }
     </script>
+    <p>注意：雑誌論文以外の文献（書籍や紀要論文など）には対応していません、また英語論文も未対応です。<br>
+      原稿にコピーするときは、巻数のみイタリックにする必要があるので注意してください（号数はイタリックにしない）。たとえば19巻1号なら19(1)→<i>19</i>(1)になります。<br>
+      <br>
+      正しい書式の見本を以下に示します。<br>
+      川上 直秋（2019）．指先が変える単語の意味――スマートフォン使用と単語の感情価の関係―― 心理学研究， <i>91</i>(1), 23-33. https://doi.org/10.4992/jjpsy.91.18060
   </body>
 </html>
